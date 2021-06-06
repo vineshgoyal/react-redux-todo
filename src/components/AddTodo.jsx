@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {ADD_TODO} from '../actions/types';
 
-
-export function AddTodo (props){
+function AddTodo (props){
+    console.log('props:', props)
     const [todo, setTodo] = React.useState({
         title: ""
     });
@@ -16,7 +18,7 @@ export function AddTodo (props){
         setTodo({
             title: ""
         })
-        props.onAdd(todo)
+        props.addTodo(todo)
     }    
 
     return (
@@ -27,3 +29,21 @@ export function AddTodo (props){
         </div>
     )
 }
+
+function mapDispatchToProps(dispatch){
+    return {
+        addTodo: function(data){
+            let action = {
+                type: ADD_TODO,
+                payload: data
+            }
+            dispatch(action)
+        },
+
+        editTodo: function(){
+            console.log("test dispatch");
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AddTodo);

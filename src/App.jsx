@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TodoList from './components/TodoList';
-import { AddTodo } from './components/AddTodo';
-import { createStore } from 'redux';
+import AddTodo from './components/AddTodo';
 import { Provider } from 'react-redux';
-let myStore = createStore(function (state = [{title: "Default todo"}], action) {
-  switch (action.type) {
-    case "ADD":
-      let newState = [...state];
-      newState.push(action.payload);
-      return newState;
-  }
-  return state;
-});
-
+import store from './Reducers/store';
 
 
 function App() {
-  const onAddHandler = (todo) => {
-    console.log('todo:', todo)
-  }
-
   return (
-    <Provider store={myStore} >
+    <Provider store={store} >
       <div className="App">
-        <AddTodo onAdd={onAddHandler} />
+        <AddTodo/>
         <TodoList />
       </div>
     </Provider>
