@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {ADD_TODO} from '../actions/types';
+import {addTodo} from '../actions/todoActions';
 
 function AddTodo (props){
     console.log('props:', props)
@@ -32,17 +32,7 @@ function AddTodo (props){
 
 function mapDispatchToProps(dispatch){
     return {
-        addTodo: function(data){
-            let action = {
-                type: ADD_TODO,
-                payload: data
-            }
-            dispatch(action)
-        },
-
-        editTodo: function(){
-            console.log("test dispatch");
-        }
+        "addTodo": addTodo(dispatch)
     }
 }
 
