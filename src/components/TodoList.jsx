@@ -1,6 +1,7 @@
 import React from 'react';
+import { useEffect } from 'react';
 import {connect} from 'react-redux'
-import { addTodo } from '../actions/todoActions';
+import { addTodo, LoadTodo } from '../actions/todoActions';
 function TodoList (props){
     let todoUI = props.list.map(singleTodo => <li key={singleTodo.title}> {singleTodo.title} </li>)
     const addDemoTodo = () => { 
@@ -8,6 +9,11 @@ function TodoList (props){
             title: "Demo Todo" + new Date().toISOString()
         })
     }
+        
+    useEffect(()=>{
+        props.loadTodo();
+    },[])
+
     return (
         <div>
             <ul>
@@ -22,7 +28,8 @@ function TodoList (props){
 
 function mapDispatchToProps(dispatch){
     return {
-        "addTodo": addTodo(dispatch)
+        "addTodo": addTodo(dispatch),
+        "loadTodo": LoadTodo(dispatch)
     }
 }
 
