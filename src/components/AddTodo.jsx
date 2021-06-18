@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {addTodo} from '../actions/todoActions';
 
 function AddTodo (props){
-    console.log('props:', props)
     const [todo, setTodo] = React.useState({
         title: ""
     });
@@ -30,10 +29,4 @@ function AddTodo (props){
     )
 }
 
-function mapDispatchToProps(dispatch){
-    return {
-        "addTodo": addTodo(dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(AddTodo);
+export default connect(null, {addTodo})(AddTodo);

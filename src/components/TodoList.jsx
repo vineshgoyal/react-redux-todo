@@ -1,13 +1,12 @@
 import React from 'react';
 import { useEffect } from 'react';
 import {connect} from 'react-redux'
-import { addTodo, LoadTodo } from '../actions/todoActions';
+import { addTodo, addDemoTodo, loadTodo } from '../actions/todoActions';
 function TodoList (props){
-    let todoUI = props.list.map(singleTodo => <li key={singleTodo.title}> {singleTodo.title} </li>)
-    const addDemoTodo = () => { 
-        props.addTodo({
-            title: "Demo Todo" + new Date().toISOString()
-        })
+    const { demoTodo, list } = props;
+    let todoUI = list && list.map(singleTodo => <li key={singleTodo.id}> {singleTodo.title} </li>)
+    const clickHandler = () => { 
+        demoTodo();
     }
         
     useEffect(()=>{
@@ -19,24 +18,17 @@ function TodoList (props){
             <ul>
                 { todoUI }
             </ul>
-            <button onClick={addDemoTodo}>
+            <button onClick={clickHandler}>
                 Demo Todo
             </button>
         </div>
     )
 }
 
-function mapDispatchToProps(dispatch){
-    return {
-        "addTodo": addTodo(dispatch),
-        "loadTodo": LoadTodo(dispatch)
-    }
-}
-
-
 function mapStateToProps(state){
-    return {list: [...state.todoReducer]};
+    return {
+        list: state.todoReducer
+    };
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(mapStateToProps, { demoTodo: addDemoTodo, addTodo, loadTodo } )(TodoList);

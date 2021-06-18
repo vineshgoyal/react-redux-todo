@@ -1,6 +1,6 @@
 import { ADD_TODO, LOAD_TODO } from '../actions/types';
 
-function TodoReducer(state = [{ title: "Default todo" }, { title: "Default todo 2" }], action) {
+function TodoReducer(state = [], action) {
     switch (action.type) {
         case ADD_TODO:
             let newState = [...state];
@@ -8,10 +8,7 @@ function TodoReducer(state = [{ title: "Default todo" }, { title: "Default todo 
             return newState;
 
         case LOAD_TODO:
-            action.payload.forEach((singleTodo) => {
-                state.push(singleTodo)
-            });
-            return state;
+            return state.concat( action.payload)
     }
     return state;
 }
