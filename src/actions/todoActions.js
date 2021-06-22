@@ -1,5 +1,5 @@
 import { httpRequest } from '../services/httpRequest';
-import { ADD_TODO, LOAD_TODO } from './types';
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, LOAD_TODO, UPDATE_TODO } from './types';
 
 export const addTodo = (data) => {
     return (dispatch) => {
@@ -34,5 +34,35 @@ export const loadTodo = () => {
                 payload: res.data
             })
         });
+    }
+}
+
+export const deleteTodo = (id) => {
+    return (dispatch) => {
+        httpRequest.delete("/todos/" + id).then((res) => {
+            dispatch({
+                type: DELETE_TODO,
+                payload: id
+            })
+        });
+    }
+}
+
+export const editTodo = (id) => {
+    return {
+        type: EDIT_TODO,
+        payload: id
+    }
+}
+
+export const updateTodo = (data) => {
+    return ( dispatch )=>{
+        httpRequest.patch("/todos/" + data.id, { title: data.title }).then((res)=>{
+                dispatch({
+                    type: UPDATE_TODO,
+                    payload: res.data
+                })
+                
+            })
     }
 }
