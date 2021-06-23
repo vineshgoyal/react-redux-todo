@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux'
+import { addTwo, Sum } from '../services/utils';
 import { addTodo, addDemoTodo, loadTodo, deleteTodo, editTodo } from '../actions/todoActions';
 function TodoList(props) {
     const { demoTodo, list } = props;
@@ -8,6 +9,9 @@ function TodoList(props) {
     function onDelete(id) {
         props.deleteTodo(id)
     }
+
+    const sumRes = Sum(12, 8);
+    const addTwoInNum = addTwo(50);
 
     function onEdit(id) {
         props.editTodo(id)
@@ -22,10 +26,6 @@ function TodoList(props) {
         demoTodo();
     }
 
-
-
-
-
     useEffect(() => {
         props.loadTodo();
     }, [])
@@ -36,7 +36,7 @@ function TodoList(props) {
                 {todoUI}
             </ul>
             <button onClick={clickHandler}>
-                Demo Todo
+                Demo Todo {sumRes} {addTwoInNum}
             </button>
         </div>
     )
